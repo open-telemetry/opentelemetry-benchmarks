@@ -11,19 +11,24 @@ on:
     - cron: '13 2 * * 4' # weekly at 02:13 (UTC) on Thursday
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   zizmor:
     name: Zizmor Security Analysis
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name != 'schedule' || (github.event_name == 'schedule' && github.event.repository.fork == false)
+
     concurrency:
       group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
       cancel-in-progress: true
+
     permissions:
-      contents: read
-      security-events: write  # for zizmor to upload SARIF results
+      actions: read # Scan GitHub Actions workflows
+      contents: read # Checkout the repository
+      security-events: write # Store results in the Security tab
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0

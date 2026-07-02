@@ -1,7 +1,7 @@
 # Harnesses
 
 This directory holds the per-language benchmark harnesses that implement
-the scenarios defined in [`../scenarios/`](../scenarios/).
+the scenarios defined in [`scenarios`](../scenarios/).
 
 ## Layout
 
@@ -31,7 +31,7 @@ which appends each run as a data point and renders the trend over time. A
 harness emits its results as a JSON array of
 `{ name, unit, value, extra }` entries (the action's `customSmallerIsBetter`
 format), where `extra` carries the per-data-point environment metadata. Since
-lower values indicate better performance for every S1 metric, harnesses use
+lower values indicate better performance for every S001 metric, harnesses use
 the action's smaller-is-better mode so improvements and regressions are
 flagged correctly on the dashboard.
 
@@ -45,7 +45,7 @@ the repository maintainers. This mirrors the ownership model used by
 
 ## Adding a new language harness
 
-1. Read the scenario document(s) under [`../scenarios/`](../scenarios/).
+1. Read the scenario document(s) under [`scenarios`](../scenarios/).
 2. Create `harnesses/<language>/` with an idiomatic benchmark plus a
    `README.md`.
 3. Map "API-only" (and any other scenario terms) to your language's packages,

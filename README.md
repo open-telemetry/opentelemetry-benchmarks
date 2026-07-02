@@ -12,11 +12,11 @@ project, with the technical proposal captured in
 
 ## Repository layout
 
-- [`scenarios/`](scenarios/) — language-agnostic scenario definitions; the
+- [`scenarios/`](scenarios/) - language-agnostic scenario definitions; the
   single source of truth for what each benchmark measures and how results are
   reported. Start with
-  [Scenario S1](scenarios/S1-counter-increment-api-only.md).
-- [`harnesses/`](harnesses/) — per-language harnesses (`harnesses/<language>/`)
+  [Scenario S001](scenarios/S001-counter-increment-api-only.md).
+- [`harnesses/`](harnesses/) - per-language harnesses (`harnesses/<language>/`)
   that implement the scenarios using each language's idiomatic benchmarking
   framework.
 

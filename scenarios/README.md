@@ -7,28 +7,28 @@ implementation can produce a conforming harness from the document alone.
 
 ## Layout
 
-- One Markdown file per scenario, named `S<n>-<short-slug>.md`
-  (e.g. [`S1-counter-increment-api-only.md`](./S1-counter-increment-api-only.md)).
-- Scenario IDs (`S1`, `S2`, …) are stable and never reused.
+- One Markdown file per scenario, named `S<nnn>-<short-slug>.md`
+  (e.g. [`S001-counter-increment-api-only.md`](./S001-counter-increment-api-only.md)).
+- Scenario IDs (`S001`, `S002`, ...) are stable and never reused.
 - The matching implementations live under
-  [`../harnesses/<language>/`](../harnesses/), one harness per language.
+  [`/harnesses/<language>/`](../harnesses/), one harness per language.
 
 ## Each scenario document should define
 
-- Workload — exactly what operation is measured and how (instrument names,
+- Workload - exactly what operation is measured and how (instrument names,
   attribute keys/values, loop shape, threading model).
-- Reported metrics — the values each harness must emit (e.g. `ns/op`,
+- Reported metrics - the values each harness must emit (e.g. `ns/op`,
   `allocations/op`) and their "smaller/larger is better" direction.
-- Per-data-point metadata — the environment fields recorded with each
+- Per-data-point metadata - the environment fields recorded with each
   result.
-- Per-language interpretation — how the abstract scenario maps to each
+- Per-language interpretation - how the abstract scenario maps to each
   language's API/SDK packages.
 
 ## Scenarios
 
 | ID | Scenario | Status |
 |----|----------|--------|
-| [S1](./S1-counter-increment-api-only.md) | Counter increment, API-only (no SDK configured) | Active |
+| [S001](./S001-counter-increment-api-only.md) | Counter increment, API-only (no SDK configured) | Active |
 
 Additional scenarios (other signals, SDK fast-paths, multi-threaded workloads)
 are tracked as future work in

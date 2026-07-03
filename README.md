@@ -10,6 +10,16 @@ It is being established as part of the
 project, with the technical proposal captured in
 [OTEP 5109](https://github.com/open-telemetry/opentelemetry-specification/pull/5118).
 
+## Repository layout
+
+- [`scenarios/`](scenarios/) - language-agnostic scenario definitions; the
+  single source of truth for what each benchmark measures and how results are
+  reported. Start with
+  [Scenario S001](scenarios/S001-counter-increment-api-only.md).
+- [`harnesses/`](harnesses/) - per-language harnesses (`harnesses/<language>/`)
+  that implement the scenarios using each language's idiomatic benchmarking
+  framework.
+
 ## Maintainers
 
 - [Cijo Thomas](https://github.com/cijothomas), Microsoft

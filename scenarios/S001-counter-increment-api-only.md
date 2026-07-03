@@ -49,11 +49,9 @@ counter increment, defined below.
   its language's benchmarking framework (BenchmarkDotNet, Criterion, JMH, ...)
   to drive warmup and repeat the operation enough times for a statistically
   stable per-operation result; the scenario intentionally fixes neither an
-  iteration count nor a run duration, leaving that to the framework. In .NET
-  terms, the `[Benchmark]` method body is a single increment and
-  BenchmarkDotNet owns the looping and iteration count. Harnesses must not
-  hand-roll a manual counting loop that the compiler/JIT could hoist or
-  eliminate.
+  iteration count nor a run duration, leaving that to the framework.
+  Harnesses must not hand-roll a manual counting loop that the
+  compiler/JIT could hoist or eliminate.
 
 ## Reported metrics
 

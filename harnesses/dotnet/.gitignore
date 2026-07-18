@@ -1,0 +1,6 @@
+# .NET build output
+bin/
+obj/
+
+# BenchmarkDotNet run artifacts
+BenchmarkDotNet.Artifacts/

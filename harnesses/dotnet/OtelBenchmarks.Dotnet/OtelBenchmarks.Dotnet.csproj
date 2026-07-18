@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- net8.0 keeps the in-box DiagnosticSource frozen at 8.x, so the referenced
+         package (a higher major) always overrides it and is the version that runs.
+         This makes the tracked package version the true independent variable. -->
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>OtelBenchmarks.Dotnet</RootNamespace>
+    <AssemblyName>OtelBenchmarks.Dotnet</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.10" />
+  </ItemGroup>
+
+</Project>

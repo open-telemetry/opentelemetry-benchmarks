@@ -1,0 +1,87 @@
+name: run-benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'harnesses/dotnet/**'
+      - '.github/workflows/run-benchmark.yml'
+
+permissions: {}
+
+concurrency:
+  group: run-benchmark-dashboard
+  cancel-in-progress: false
+
+jobs:
+  dotnet:
+    name: S001 / .NET
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write # Publish data points to the gh-pages branch
+
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Run BenchmarkDotNet
+        working-directory: harnesses/dotnet/OtelBenchmarks.Dotnet
+        run: dotnet run -c Release -- --exporters json --filter '*'
+
+      - name: Read benchmarked package version
+        id: pkg
+        run: |
+          version=$(sed -n 's/.*Include="System.Diagnostics.DiagnosticSource" Version="\([^"]*\)".*/\1/p' \
+            harnesses/dotnet/OtelBenchmarks.Dotnet/OtelBenchmarks.Dotnet.csproj)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "System.Diagnostics.DiagnosticSource $version"
+
+      - name: Collect environment metadata
+        id: meta
+        run: |
+          image="${ImageOS:-$RUNNER_OS}"
+          runtime=".NET $(dotnet --version)"
+          cpu=$(grep -m1 'model name' /proc/cpuinfo | sed 's/.*: //')
+          kernel=$(uname -r)
+          extra=$(printf 'runner=%s\nruntime=%s\ncpu=%s\nkernel=%s\nframework=BenchmarkDotNet' \
+            "$image" "$runtime" "$cpu" "$kernel")
+          {
+            echo 'extra<<__END__'
+            echo "$extra"
+            echo '__END__'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build dashboard result from BenchmarkDotNet report
+        working-directory: harnesses/dotnet/OtelBenchmarks.Dotnet
+        env:
+          EXTRA: ${{ steps.meta.outputs.extra }}
+        run: |
+          report=BenchmarkDotNet.Artifacts/results/OtelBenchmarks.Dotnet.S001CounterIncrementApiOnly-report-full-compressed.json
+          mean=$(jq '.Benchmarks[0].Statistics.Mean' "$report")
+          alloc=$(jq '.Benchmarks[0].Memory.BytesAllocatedPerOperation // 0' "$report")
+          jq -n --arg extra "$EXTRA" --argjson v "$mean" --argjson a "$alloc" \
+            '[
+              {name:"counter increment", unit:"ns", value:$v, extra:$extra},
+              {name:"counter increment allocations", unit:"B/op", value:$a, extra:$extra}
+            ]' > result.json
+          cat result.json
+
+      - name: Publish to dashboard
+        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
+        with:
+          name: 'S001 / .NET (System.Diagnostics.DiagnosticSource ${{ steps.pkg.outputs.version }})'
+          tool: 'customSmallerIsBetter'
+          output-file-path: harnesses/dotnet/OtelBenchmarks.Dotnet/result.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: 'dev/bench'

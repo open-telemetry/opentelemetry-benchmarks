@@ -24,11 +24,19 @@ concurrency:
 jobs:
   build:
     name: Build and dry-run
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
 
     permissions:
       contents: read # Checkout the repository
+
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      DOTNET_NOLOGO: true
+      DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
+      NUGET_XMLDOC_MODE: skip
+      TERM: xterm
 
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -41,8 +49,8 @@ jobs:
 
       - name: Build
         working-directory: harnesses/dotnet
-        run: dotnet build -c Release OtelBenchmarks.Dotnet
+        run: dotnet build --configuration Release OtelBenchmarks.Dotnet
 
       - name: Dry-run benchmark
         working-directory: harnesses/dotnet/OtelBenchmarks.Dotnet
-        run: dotnet run -c Release --no-build -- --filter '*' --job Dry
+        run: dotnet run --configuration Release --no-build -- --filter '*' --job Dry

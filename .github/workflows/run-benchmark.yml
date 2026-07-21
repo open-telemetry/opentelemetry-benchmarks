@@ -17,12 +17,20 @@ concurrency:
 
 jobs:
   dotnet:
-    name: S001 / .NET
-    runs-on: ubuntu-latest
+    name: .NET / S001
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
 
     permissions:
       contents: write # Publish data points to the gh-pages branch
+
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      DOTNET_NOLOGO: true
+      DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
+      NUGET_XMLDOC_MODE: skip
+      TERM: xterm
 
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -35,13 +43,13 @@ jobs:
 
       - name: Run BenchmarkDotNet
         working-directory: harnesses/dotnet/OtelBenchmarks.Dotnet
-        run: dotnet run -c Release -- --exporters json --filter '*'
+        run: dotnet run --configuration Release -- --exporters json --filter '*'
 
       - name: Read benchmarked package version
         id: pkg
         run: |
           version=$(sed -n 's/.*Include="System.Diagnostics.DiagnosticSource" Version="\([^"]*\)".*/\1/p' \
-            harnesses/dotnet/OtelBenchmarks.Dotnet/OtelBenchmarks.Dotnet.csproj)
+            harnesses/dotnet/Directory.Packages.props)
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "System.Diagnostics.DiagnosticSource $version"
 
@@ -78,7 +86,7 @@ jobs:
       - name: Publish to dashboard
         uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
         with:
-          name: 'S001 / .NET (System.Diagnostics.DiagnosticSource ${{ steps.pkg.outputs.version }})'
+          name: '.NET / S001 (System.Diagnostics.DiagnosticSource ${{ steps.pkg.outputs.version }})'
           tool: 'customSmallerIsBetter'
           output-file-path: harnesses/dotnet/OtelBenchmarks.Dotnet/result.json
           github-token: ${{ secrets.GITHUB_TOKEN }}

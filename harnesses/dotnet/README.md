@@ -1,16 +1,20 @@
-# .NET harness for Scenario S001
+# .NET harness
 
-A [BenchmarkDotNet](https://benchmarkdotnet.org/) harness implementing
-[Scenario S001](../../scenarios/S001-counter-increment-api-only.md), measuring
-`Counter.Add` against `System.Diagnostics.DiagnosticSource` with no
+[BenchmarkDotNet](https://benchmarkdotnet.org/) harnesses for the OpenTelemetry
+benchmark scenarios.
+
+## S001: counter increment, API-only
+
+Implements [Scenario S001](../../scenarios/S001-counter-increment-api-only.md),
+measuring `Counter.Add` against `System.Diagnostics.DiagnosticSource` with no
 OpenTelemetry SDK registered.
 
-## Run locally
+### Run locally
 
 ```sh
-dotnet run -c Release --project OtelBenchmarks.Dotnet -- --filter '*'
+dotnet run --configuration Release --project OtelBenchmarks.Dotnet -- --filter '*'
 ```
 
 The benchmarked `System.Diagnostics.DiagnosticSource` version is pinned in
-[`OtelBenchmarks.Dotnet.csproj`](./OtelBenchmarks.Dotnet/OtelBenchmarks.Dotnet.csproj)
-and bumped by the dependency bot as new releases ship.
+[`Directory.Packages.props`](./Directory.Packages.props) and bumped by the
+dependency bot as new releases ship.

@@ -1,0 +1,12 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="BenchmarkDotNet" Version="0.15.8" />
+    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="10.0.10" />
+  </ItemGroup>
+
+</Project>

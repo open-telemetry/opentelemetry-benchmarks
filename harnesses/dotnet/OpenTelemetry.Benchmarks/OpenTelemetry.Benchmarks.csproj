@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- net8.0 keeps the in-box DiagnosticSource frozen at 8.x, so the referenced
+         package (a higher major) always overrides it and is the version that runs.
+         This makes the tracked package version the true independent variable. -->
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>OpenTelemetry.Benchmarks</RootNamespace>
+    <AssemblyName>OpenTelemetry.Benchmarks</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" />
+  </ItemGroup>
+
+</Project>

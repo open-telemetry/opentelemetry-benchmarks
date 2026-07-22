@@ -5,7 +5,7 @@ using System.Diagnostics.Metrics;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Exporters.Json;
 
-namespace OtelBenchmarks.Dotnet;
+namespace OpenTelemetry.Benchmarks;
 
 // Scenario S001: counter increment, API-only.
 // See ../../../scenarios/S001-counter-increment-api-only.md for the definition.
@@ -17,7 +17,7 @@ namespace OtelBenchmarks.Dotnet;
 [JsonExporterAttribute.FullCompressed]
 public class S001CounterIncrementApiOnly
 {
-    private static readonly Meter Meter = new("OtelBenchmarks.S001");
+    private static readonly Meter Meter = new("OpenTelemetry.Benchmarks.S001");
     private static readonly Counter<long> Counter =
         Meter.CreateCounter<long>("house.energy.consumed");
 

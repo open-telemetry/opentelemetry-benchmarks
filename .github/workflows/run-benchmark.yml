@@ -42,7 +42,7 @@ jobs:
           global-json-file: harnesses/dotnet/global.json
 
       - name: Run BenchmarkDotNet
-        working-directory: harnesses/dotnet/OtelBenchmarks.Dotnet
+        working-directory: harnesses/dotnet/OpenTelemetry.Benchmarks
         run: dotnet run --configuration Release -- --exporters json --filter '*'
 
       - name: Read benchmarked package version
@@ -69,11 +69,11 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Build dashboard result from BenchmarkDotNet report
-        working-directory: harnesses/dotnet/OtelBenchmarks.Dotnet
+        working-directory: harnesses/dotnet/OpenTelemetry.Benchmarks
         env:
           EXTRA: ${{ steps.meta.outputs.extra }}
         run: |
-          report=BenchmarkDotNet.Artifacts/results/OtelBenchmarks.Dotnet.S001CounterIncrementApiOnly-report-full-compressed.json
+          report=BenchmarkDotNet.Artifacts/results/OpenTelemetry.Benchmarks.S001CounterIncrementApiOnly-report-full-compressed.json
           mean=$(jq '.Benchmarks[0].Statistics.Mean' "$report")
           alloc=$(jq '.Benchmarks[0].Memory.BytesAllocatedPerOperation // 0' "$report")
           jq -n --arg extra "$EXTRA" --argjson v "$mean" --argjson a "$alloc" \
@@ -88,7 +88,7 @@ jobs:
         with:
           name: '.NET / S001 (System.Diagnostics.DiagnosticSource ${{ steps.pkg.outputs.version }})'
           tool: 'customSmallerIsBetter'
-          output-file-path: harnesses/dotnet/OtelBenchmarks.Dotnet/result.json
+          output-file-path: harnesses/dotnet/OpenTelemetry.Benchmarks/result.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
           gh-pages-branch: gh-pages

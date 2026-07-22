@@ -6,8 +6,8 @@
          package (a higher major) always overrides it and is the version that runs.
          This makes the tracked package version the true independent variable. -->
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>OtelBenchmarks.Dotnet</RootNamespace>
-    <AssemblyName>OtelBenchmarks.Dotnet</AssemblyName>
+    <RootNamespace>OpenTelemetry.Benchmarks</RootNamespace>
+    <AssemblyName>OpenTelemetry.Benchmarks</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

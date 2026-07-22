@@ -49,8 +49,8 @@ jobs:
 
       - name: Build
         working-directory: harnesses/dotnet
-        run: dotnet build --configuration Release OtelBenchmarks.Dotnet
+        run: dotnet build --configuration Release OpenTelemetry.Benchmarks
 
       - name: Dry-run benchmark
-        working-directory: harnesses/dotnet/OtelBenchmarks.Dotnet
+        working-directory: harnesses/dotnet/OpenTelemetry.Benchmarks
         run: dotnet run --configuration Release --no-build -- --filter '*' --job Dry

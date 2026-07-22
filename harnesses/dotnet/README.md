@@ -12,7 +12,7 @@ OpenTelemetry SDK registered.
 ### Run locally
 
 ```sh
-dotnet run --configuration Release --project OtelBenchmarks.Dotnet -- --filter '*'
+dotnet run --configuration Release --project OpenTelemetry.Benchmarks -- --filter '*'
 ```
 
 The benchmarked `System.Diagnostics.DiagnosticSource` version is pinned in

@@ -1,0 +1,11 @@
+# .NET build output
+artifacts/
+bin/
+obj/
+
+# BenchmarkDotNet run artifacts
+BenchmarkDotNet.Artifacts/
+
+# IDE
+.vs/
+.vscode/

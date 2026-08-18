@@ -5,3 +5,5 @@
 # https://help.github.com/en/articles/about-code-owners
 
 * @open-telemetry/benchmarks-approvers
+
+/harnesses/dotnet/ @open-telemetry/dotnet-approvers

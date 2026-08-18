@@ -15,6 +15,7 @@ OpenTelemetry SDK registered.
 dotnet run --configuration Release --project OpenTelemetry.Benchmarks -- --filter '*'
 ```
 
-The benchmarked `System.Diagnostics.DiagnosticSource` version is pinned in
-[`Directory.Packages.props`](./Directory.Packages.props) and bumped by the
-dependency bot as new releases ship.
+The benchmarked `System.Diagnostics.DiagnosticSource` (which ships the
+`System.Diagnostics.Metrics` API) is provided in-box by the .NET runtime, so its
+version tracks the target framework. The SDK is pinned in
+[`global.json`](./global.json) and bumped as new .NET releases ship.

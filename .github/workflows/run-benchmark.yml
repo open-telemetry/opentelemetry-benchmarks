@@ -45,13 +45,14 @@ jobs:
         working-directory: harnesses/dotnet/OpenTelemetry.Benchmarks
         run: dotnet run --configuration Release -- --exporters json --filter '*'
 
-      - name: Read benchmarked package version
+      - name: Read benchmarked .NET runtime version
         id: pkg
+        working-directory: harnesses/dotnet/OpenTelemetry.Benchmarks
         run: |
-          version=$(sed -n 's/.*Include="System.Diagnostics.DiagnosticSource" Version="\([^"]*\)".*/\1/p' \
-            harnesses/dotnet/Directory.Packages.props)
+          report=BenchmarkDotNet.Artifacts/results/OpenTelemetry.Benchmarks.S001CounterIncrementApiOnly-report-full-compressed.json
+          version=$(jq -r '.HostEnvironmentInfo.RuntimeVersion' "$report" | sed -n 's/^\.NET \([0-9][0-9.]*\).*/\1/p')
           echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "System.Diagnostics.DiagnosticSource $version"
+          echo ".NET runtime $version (ships System.Diagnostics.DiagnosticSource in-box)"
 
       - name: Collect environment metadata
         id: meta
@@ -86,7 +87,7 @@ jobs:
       - name: Publish to dashboard
         uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
         with:
-          name: '.NET / S001 (System.Diagnostics.DiagnosticSource ${{ steps.pkg.outputs.version }})'
+          name: '.NET / S001 (.NET ${{ steps.pkg.outputs.version }})'
           tool: 'customSmallerIsBetter'
           output-file-path: harnesses/dotnet/OpenTelemetry.Benchmarks/result.json
           github-token: ${{ secrets.GITHUB_TOKEN }}

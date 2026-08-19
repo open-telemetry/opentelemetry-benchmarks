@@ -43,7 +43,16 @@ jobs:
 
       - name: Run BenchmarkDotNet
         working-directory: harnesses/dotnet/OpenTelemetry.Benchmarks
-        run: dotnet run --configuration Release -- --exporters json --filter '*'
+        run: dotnet run --configuration Release -- --exporters json github --filter '*'
+
+      - name: Write results to GitHub step summary
+        working-directory: harnesses/dotnet/OpenTelemetry.Benchmarks
+        run: |
+          shopt -s nullglob
+          reports=(BenchmarkDotNet.Artifacts/results/*-report-github.md)
+          if [ ${#reports[@]} -gt 0 ]; then
+            cat "${reports[@]}" >> "${GITHUB_STEP_SUMMARY}"
+          fi
 
       - name: Read benchmarked .NET runtime version
         id: pkg

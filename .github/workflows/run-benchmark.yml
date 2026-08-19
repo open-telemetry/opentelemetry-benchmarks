@@ -47,7 +47,12 @@ jobs:
 
       - name: Write results to GitHub step summary
         working-directory: harnesses/dotnet/OpenTelemetry.Benchmarks
-        run: cat BenchmarkDotNet.Artifacts/results/*-report-github.md >> "${GITHUB_STEP_SUMMARY}"
+        run: |
+          shopt -s nullglob
+          reports=(BenchmarkDotNet.Artifacts/results/*-report-github.md)
+          if [ ${#reports[@]} -gt 0 ]; then
+            cat "${reports[@]}" >> "${GITHUB_STEP_SUMMARY}"
+          fi
 
       - name: Read benchmarked .NET runtime version
         id: pkg

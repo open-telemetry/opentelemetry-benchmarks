@@ -1,4 +1,4 @@
-name: run-benchmark
+name: run-benchmark-dotnet
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - 'harnesses/dotnet/**'
-      - '.github/workflows/run-benchmark.yml'
+      - '.github/workflows/run-benchmark-dotnet.yml'
 
 permissions: {}
 

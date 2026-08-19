@@ -20,6 +20,17 @@ project, with the technical proposal captured in
   that implement the scenarios using each language's idiomatic benchmarking
   framework.
 
+## Dashboard
+
+Benchmark results are published to a public dashboard that tracks
+release-over-release performance for each language implementation:
+
+**https://open-telemetry.github.io/opentelemetry-benchmarks/**
+
+The raw [github-action-benchmark](https://github.com/benchmark-action/github-action-benchmark)
+view is also available at
+[`/dev/bench/`](https://open-telemetry.github.io/opentelemetry-benchmarks/dev/bench/).
+
 ## Maintainers
 
 - [Cijo Thomas](https://github.com/cijothomas), Microsoft

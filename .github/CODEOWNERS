@@ -7,3 +7,4 @@
 * @open-telemetry/benchmarks-approvers
 
 /harnesses/dotnet/ @open-telemetry/dotnet-approvers
+/harnesses/rust/ @open-telemetry/rust-approvers

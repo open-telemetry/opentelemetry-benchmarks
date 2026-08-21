@@ -1,0 +1,44 @@
+name: Harness (Rust)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'harnesses/rust/**'
+      - '.github/workflows/harness-rust.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'harnesses/rust/**'
+      - '.github/workflows/harness-rust.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and dry-run
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    permissions:
+      contents: read # Checkout the repository
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build
+        working-directory: harnesses/rust
+        run: cargo build --benches --release --locked
+
+      - name: Dry-run benchmark
+        working-directory: harnesses/rust
+        run: cargo bench --bench s001_counter_increment_api_only --locked -- --test

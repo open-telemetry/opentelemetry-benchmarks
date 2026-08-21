@@ -1,0 +1,83 @@
+name: run-benchmark-rust
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'harnesses/rust/**'
+      - '.github/workflows/run-benchmark-rust.yml'
+
+permissions: {}
+
+concurrency:
+  group: run-benchmark-dashboard
+  cancel-in-progress: false
+
+jobs:
+  rust:
+    name: Rust / S001
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    permissions:
+      contents: write # Publish data points to the gh-pages branch
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run Criterion benchmark
+        working-directory: harnesses/rust
+        run: cargo bench --bench s001_counter_increment_api_only --locked
+
+      - name: Read benchmarked opentelemetry crate version
+        id: pkg
+        working-directory: harnesses/rust
+        run: |
+          version=$(cargo metadata --format-version 1 --locked | jq -r '.packages[] | select(.name == "opentelemetry") | .version')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "opentelemetry crate $version (API-only, no SDK registered)"
+
+      - name: Collect environment metadata
+        id: meta
+        working-directory: harnesses/rust
+        run: |
+          image="${ImageOS:-$RUNNER_OS}"
+          runtime="$(rustc --version)"
+          cpu=$(grep -m1 'model name' /proc/cpuinfo | sed 's/.*: //')
+          kernel=$(uname -r)
+          criterion=$(cargo metadata --format-version 1 --locked | jq -r '.packages[] | select(.name == "criterion") | .version')
+          extra=$(printf 'runner=%s\nruntime=%s\ncpu=%s\nkernel=%s\nframework=Criterion %s' \
+            "$image" "$runtime" "$cpu" "$kernel" "$criterion")
+          {
+            echo 'extra<<__END__'
+            echo "$extra"
+            echo '__END__'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build dashboard result from Criterion estimates
+        working-directory: harnesses/rust
+        env:
+          EXTRA: ${{ steps.meta.outputs.extra }}
+        run: |
+          report="target/criterion/counter increment/new/estimates.json"
+          mean=$(jq '.mean.point_estimate' "$report")
+          jq -n --arg extra "$EXTRA" --argjson v "$mean" \
+            '[
+              {name:"counter increment", unit:"ns", value:$v, extra:$extra}
+            ]' > result.json
+          cat result.json
+
+      - name: Publish to dashboard
+        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
+        with:
+          name: 'Rust / S001 (opentelemetry ${{ steps.pkg.outputs.version }})'
+          tool: 'customSmallerIsBetter'
+          output-file-path: harnesses/rust/result.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: 'dev/bench'

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1787151163353,
+  "lastUpdate": 1787298227257,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -64,6 +64,42 @@ window.BENCHMARK_DATA = {
           {
             "name": "counter increment",
             "value": 3.1818678642312688,
+            "unit": "ns",
+            "extra": "runner=ubuntu24\nruntime=.NET 10.0.400\ncpu=AMD EPYC 9V74 80-Core Processor\nkernel=6.17.0-1022-azure\nframework=BenchmarkDotNet"
+          },
+          {
+            "name": "counter increment allocations",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "runner=ubuntu24\nruntime=.NET 10.0.400\ncpu=AMD EPYC 9V74 80-Core Processor\nkernel=6.17.0-1022-azure\nframework=BenchmarkDotNet"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "cijo.thomas@gmail.com",
+            "name": "Cijo Thomas",
+            "username": "cijothomas"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "073ee7b4270a0e5d93b60d13ef3cf450b07533ad",
+          "message": "Add Rust harness for scenario S001 (#28)",
+          "timestamp": "2026-08-21T00:42:45-07:00",
+          "tree_id": "4dec4a351983e7d38d3f3ac21722966c19d91f0e",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/073ee7b4270a0e5d93b60d13ef3cf450b07533ad"
+        },
+        "date": 1787298226744,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 3.1720323321911006,
             "unit": "ns",
             "extra": "runner=ubuntu24\nruntime=.NET 10.0.400\ncpu=AMD EPYC 9V74 80-Core Processor\nkernel=6.17.0-1022-azure\nframework=BenchmarkDotNet"
           },

@@ -1,9 +1,8 @@
 # Pins the Rust toolchain used to build and run this harness, so benchmark
 # results are reproducible and comparable release-over-release regardless of the
-# toolchain the CI runner happens to ship. This is the Rust equivalent of the
-# .NET harness's global.json. rustup reads this file automatically (the CI
-# runner already has rustup installed), so no separate "setup Rust" step or
-# action is needed. Bump the channel to re-baseline on a newer compiler.
+# toolchain the CI runner happens to ship. rustup reads this file automatically
+# (the CI runner already has rustup installed), so no separate "setup Rust" step
+# or action is needed. Bump the channel to re-baseline on a newer compiler.
 [toolchain]
 channel = "1.97.0"
 profile = "minimal"

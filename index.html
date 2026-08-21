@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OpenTelemetry Benchmarks</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 1100px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  h1 { margin-bottom: 0.25rem; }
+  .sub { color: #666; margin-top: 0; }
+  .scenario { margin-top: 2rem; }
+  canvas { max-width: 100%; }
+  table { border-collapse: collapse; margin-top: 0.5rem; font-size: 0.9rem; width: 100%; }
+  th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
+  th { background: #f5f5f5; }
+  td.env { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.78rem; color: #444; white-space: pre; }
+</style>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"
+  integrity="sha384-DhxhYObIMeMNGyAG7iK11OHzBIKyEIeRL0ad1iFPAOwZB8iirUlTT0O/WJJUk8+o"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
+<script src="./dev/bench/data.js"></script>
+</head>
+<body>
+<h1>OpenTelemetry Benchmarks</h1>
+<p class="sub">
+  Cross-language OpenTelemetry performance results, tracked release over release.
+  X axis: release version under test. Y axis: measured value.
+  Part of the
+  <a href="https://github.com/open-telemetry/community/blob/main/projects/central-benchmarks-repository.md">Central OpenTelemetry Benchmarks Repository</a>
+  project (<a href="https://github.com/open-telemetry/opentelemetry-specification/pull/5118">OTEP 5109</a>).
+  <a href="https://github.com/open-telemetry/opentelemetry-benchmarks">Source</a> &middot;
+  <a href="./dev/bench/">raw github-action-benchmark view</a>.
+</p>
+
+<div id="charts"></div>
+
+<script>
+(function () {
+  const data = window.BENCHMARK_DATA;
+  const root = document.getElementById('charts');
+  if (!data || !data.entries) { root.textContent = 'No data loaded.'; return; }
+
+  const el = (tag, text) => {
+    const node = document.createElement(tag);
+    if (text != null) node.textContent = text;
+    return node;
+  };
+
+  const versionRe = /\s*\(.*?([\d]+\.[\d]+\.[\d]+)\)\s*$/;
+  const grouped = new Map();
+  for (const [entryName, runs] of Object.entries(data.entries)) {
+    const m = entryName.match(versionRe);
+    if (!m) continue;
+    const version = m[1];
+    const scenarioKey = entryName.replace(versionRe, '').trim();
+    const latest = runs[runs.length - 1];
+    const commit = latest.commit || {};
+    const when = commit.timestamp || (latest.date ? new Date(latest.date).toISOString() : '');
+    const sha = (commit.id || '').slice(0, 7);
+    const commitUrl = commit.url || '';
+    for (const bench of latest.benches) {
+      const key = scenarioKey + ' :: ' + bench.name;
+      if (!grouped.has(key)) {
+        grouped.set(key, { scenario: scenarioKey, bench: bench.name, unit: bench.unit, points: [] });
+      }
+      grouped.get(key).points.push({
+        version,
+        value: bench.value,
+        range: bench.range,
+        extra: bench.extra || '',
+        when,
+        sha,
+        commitUrl,
+      });
+    }
+  }
+
+  const cmp = (a, b) => {
+    const pa = a.split('.').map(Number), pb = b.split('.').map(Number);
+    for (let i = 0; i < 3; i++) if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) - (pb[i] || 0);
+    return 0;
+  };
+
+  if (grouped.size === 0) { root.textContent = 'No versioned benchmark entries found.'; return; }
+
+  for (const s of grouped.values()) {
+    s.points.sort((a, b) => cmp(a.version, b.version));
+    const section = document.createElement('section');
+    section.className = 'scenario';
+    section.appendChild(el('h2', s.scenario));
+    const caption = document.createElement('p');
+    caption.appendChild(el('code', s.bench));
+    caption.appendChild(document.createTextNode(' \u2014 unit: ' + s.unit));
+    section.appendChild(caption);
+
+    const canvas = document.createElement('canvas');
+    canvas.height = 260;
+    section.appendChild(canvas);
+
+    const tbl = document.createElement('table');
+    const headRow = document.createElement('tr');
+    for (const label of ['Version', s.unit, 'Range', 'Date', 'Commit', 'Environment']) {
+      headRow.appendChild(el('th', label));
+    }
+    const thead = document.createElement('thead');
+    thead.appendChild(headRow);
+    tbl.appendChild(thead);
+
+    const tb = document.createElement('tbody');
+    for (const p of s.points) {
+      const tr = document.createElement('tr');
+      tr.appendChild(el('td', p.version));
+      tr.appendChild(el('td', p.value.toFixed(4)));
+      tr.appendChild(el('td', p.range || ''));
+      tr.appendChild(el('td', p.when ? p.when.slice(0, 10) : ''));
+
+      const commitCell = document.createElement('td');
+      if (p.sha) {
+        const code = document.createElement('code');
+        if (p.commitUrl && /^https?:\/\//.test(p.commitUrl)) {
+          const link = el('a', p.sha);
+          link.href = p.commitUrl;
+          code.appendChild(link);
+        } else {
+          code.textContent = p.sha;
+        }
+        commitCell.appendChild(code);
+      }
+      tr.appendChild(commitCell);
+
+      const envCell = el('td', p.extra || '(no metadata captured)');
+      envCell.className = 'env';
+      tr.appendChild(envCell);
+
+      tb.appendChild(tr);
+    }
+    tbl.appendChild(tb);
+    section.appendChild(tbl);
+    root.appendChild(section);
+
+    new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels: s.points.map(p => p.version),
+        datasets: [{
+          label: s.bench + ' (' + s.unit + ')',
+          data: s.points.map(p => p.value),
+          borderColor: '#3366cc',
+          backgroundColor: 'rgba(51, 102, 204, 0.15)',
+          tension: 0.1,
+          pointRadius: 5,
+        }],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { title: { display: true, text: 'Release version' } },
+          y: { beginAtZero: true, title: { display: true, text: s.unit } },
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              afterLabel: (ctx) => {
+                const p = s.points[ctx.dataIndex];
+                const head = [];
+                if (p.when) head.push('date=' + p.when.slice(0, 10));
+                if (p.sha) head.push('commit=' + p.sha);
+                const env = p.extra ? p.extra.split('\n') : [];
+                return head.concat(env);
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+})();
+</script>
+</body>
+</html>

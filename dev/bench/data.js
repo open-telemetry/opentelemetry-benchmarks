@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1787298287040,
+  "lastUpdate": 1787327623350,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -140,6 +140,36 @@ window.BENCHMARK_DATA = {
             "value": 12.166196033076096,
             "unit": "ns",
             "extra": "runner=ubuntu24\nruntime=rustc 1.97.0 (2d8144b78 2026-07-07)\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=6.17.0-1022-azure\nframework=Criterion 0.5.1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "cijo.thomas@gmail.com",
+            "name": "Cijo Thomas",
+            "username": "cijothomas"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "80fb6038c6649b0806a53579e321405e9a90e75a",
+          "message": "Address dashboard and Rust harness review follow-ups (#29)",
+          "timestamp": "2026-08-21T08:52:32-07:00",
+          "tree_id": "8e56617f1721da506075c90b537e0c8967b1742c",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/80fb6038c6649b0806a53579e321405e9a90e75a"
+        },
+        "date": 1787327622383,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 10.224273834440726,
+            "unit": "ns",
+            "extra": "runner=ubuntu24\nruntime=rustc 1.97.0 (2d8144b78 2026-07-07)\ncpu=AMD EPYC 9V74 80-Core Processor\nkernel=6.17.0-1022-azure\nframework=Criterion 0.5.1"
           }
         ]
       }

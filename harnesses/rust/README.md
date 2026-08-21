@@ -22,11 +22,10 @@ version is published; merging it triggers a new benchmark run.
 
 The Rust toolchain is pinned in [`rust-toolchain.toml`](rust-toolchain.toml) so
 results are reproducible and comparable release-over-release, independent of
-whatever toolchain the CI runner ships. This is the Rust equivalent of the .NET
-harness's `global.json`. `rustup` reads the file automatically (the CI runner
-already has `rustup` installed), so no separate setup step or action is
-required; the `cargo` command below uses the pinned version. Bump the `channel`
-to re-baseline on a newer compiler.
+whatever toolchain the CI runner ships. `rustup` reads the file automatically
+(the CI runner already has `rustup` installed), so no separate setup step or
+action is required; the `cargo` command below uses the pinned version. Bump the
+`channel` to re-baseline on a newer compiler.
 
 ## Framework
 

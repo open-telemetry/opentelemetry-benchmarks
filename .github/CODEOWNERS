@@ -8,3 +8,4 @@
 
 /harnesses/dotnet/ @open-telemetry/dotnet-approvers
 /harnesses/rust/ @open-telemetry/rust-approvers
+/harnesses/java/ @open-telemetry/java-approvers

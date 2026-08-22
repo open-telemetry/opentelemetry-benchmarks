@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'me.champeau.jmh' version '0.7.3'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// The tracked variable for scenario S001 is the OpenTelemetry API artifact
+// version. It is pinned here and overridable from CI via
+// -PotelApiVersion=X.Y.Z so a dependency bot can bump a single literal.
+def otelApiVersion = project.findProperty('otelApiVersion') ?: '1.51.0'
+
+dependencies {
+    jmh "io.opentelemetry:opentelemetry-api:${otelApiVersion}"
+}
+
+// JMH run parameters default to a statistically stable configuration and are
+// overridable from CI so the pull-request smoke check can run a fast dry-run.
+def asInt = { v, d -> ((project.findProperty(v) ?: d) as String) as Integer }
+
+jmh {
+    warmupIterations = asInt('jmhWarmupIterations', 3)
+    iterations = asInt('jmhIterations', 5)
+    fork = asInt('jmhFork', 1)
+    warmup = project.findProperty('jmhWarmup') ?: '1s'
+    timeOnIteration = project.findProperty('jmhTimeOnIteration') ?: '2s'
+    benchmarkMode = ['avgt']
+    timeUnit = 'ns'
+    jmhVersion = '1.37'
+    resultFormat = 'JSON'
+    resultsFile = layout.buildDirectory.file('results/jmh/result.json').get().asFile
+}
+
+// Prints the tracked OpenTelemetry API version the build resolves, so the
+// benchmark workflow can label the published data point without re-parsing
+// this file.
+tasks.register('printOtelApiVersion') {
+    doLast { println otelApiVersion }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}

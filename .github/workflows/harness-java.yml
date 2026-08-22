@@ -1,0 +1,54 @@
+name: Harness (Java)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'harnesses/java/**'
+      - '.github/workflows/harness-java.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'harnesses/java/**'
+      - '.github/workflows/harness-java.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and dry-run
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    permissions:
+      contents: read # Checkout the repository
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+          cache-dependency-path: harnesses/java/*.gradle
+
+      - name: Build
+        working-directory: harnesses/java
+        run: ./gradlew jmhClasses --no-daemon --console=plain
+
+      - name: Dry-run benchmark
+        working-directory: harnesses/java
+        run: >-
+          ./gradlew jmh --no-daemon --console=plain
+          -PjmhWarmupIterations=1 -PjmhIterations=1 -PjmhFork=1
+          -PjmhWarmup=100ms -PjmhTimeOnIteration=200ms

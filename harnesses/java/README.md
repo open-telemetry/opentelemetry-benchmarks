@@ -14,8 +14,9 @@ instrumented when the application has not configured an SDK.
 
 "API-only" for Java means depending on `opentelemetry-api` only, not
 `opentelemetry-sdk`. The recorded version against each data point is the
-`opentelemetry-api` artifact version, pinned in [`build.gradle`](build.gradle)
-and overridable from CI via `-PotelApiVersion=X.Y.Z`. A dependency bot opens a
+`opentelemetry-api` artifact version, declared in
+[`gradle.properties`](gradle.properties) (so Renovate can auto-bump it) and
+overridable from CI via `-PotelApiVersion=X.Y.Z`. A dependency bot opens a
 pull request when a new version is published; merging it triggers a new
 benchmark run.
 

@@ -7,13 +7,10 @@ repositories {
     mavenCentral()
 }
 
-// The tracked variable for scenario S001 is the OpenTelemetry API artifact
-// version. It is pinned here and overridable from CI via
-// -PotelApiVersion=X.Y.Z so a dependency bot can bump a single literal.
-def otelApiVersion = project.findProperty('otelApiVersion') ?: '1.51.0'
-
+// otelApiVersion (the tracked S001 variable) is defined in gradle.properties so
+// Renovate auto-bumps it; CI can override it with -PotelApiVersion=X.Y.Z.
 dependencies {
-    jmh "io.opentelemetry:opentelemetry-api:${otelApiVersion}"
+    jmh "io.opentelemetry:opentelemetry-api:$otelApiVersion"
 }
 
 // JMH run parameters default to a statistically stable configuration and are
@@ -28,6 +25,9 @@ jmh {
     timeOnIteration = project.findProperty('jmhTimeOnIteration') ?: '2s'
     benchmarkMode = ['avgt']
     timeUnit = 'ns'
+    // JMH core version; kept current by the "jmh-core" customManager in
+    // .github/renovate.json5 (the me.champeau.jmh plugin default would pin an
+    // older JMH).
     jmhVersion = '1.37'
     resultFormat = 'JSON'
     resultsFile = layout.buildDirectory.file('results/jmh/result.json').get().asFile
@@ -37,7 +37,7 @@ jmh {
 // benchmark workflow can label the published data point without re-parsing
 // this file.
 tasks.register('printOtelApiVersion') {
-    doLast { println otelApiVersion }
+    doLast { println project.property('otelApiVersion') }
 }
 
 java {

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1787553337901,
+  "lastUpdate": 1787725040167,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -200,6 +200,36 @@ window.BENCHMARK_DATA = {
             "value": 14.449928821163398,
             "unit": "ns",
             "extra": "runner=ubuntu24\nruntime=rustc 1.97.0 (2d8144b78 2026-07-07)\ncpu=AMD EPYC 9V74 80-Core Processor\nkernel=6.17.0-1022-azure\nframework=Criterion 0.5.1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1dfd047e686cd9773e6688fdcb11a38dc67f9b38",
+          "message": "Pin Rust crate criterion to =0.5.1 (#32)",
+          "timestamp": "2026-08-26T07:16:20+01:00",
+          "tree_id": "73e8632cc39f8c9d3b95933578309b4d45846170",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/1dfd047e686cd9773e6688fdcb11a38dc67f9b38"
+        },
+        "date": 1787725039283,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 12.284310194622638,
+            "unit": "ns",
+            "extra": "runner=ubuntu24\nruntime=rustc 1.97.0 (2d8144b78 2026-07-07)\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=6.17.0-1022-azure\nframework=Criterion 0.5.1"
           }
         ]
       }

@@ -12,6 +12,11 @@ artifact with **no SDK registered**. With only the API artifact present,
 the call hits the no-op path - exactly the cost a library pays for being
 instrumented when the application has not configured an SDK.
 
+Per S001, the three-attribute set is built on every call (the attribute keys
+are cached as static `AttributeKey`s, but the `Attributes` container is not).
+Even on the no-op path this allocates in Java - unlike .NET's stack-based
+`TagList` - so the harness reports `allocations/op` alongside `ns/op`.
+
 "API-only" for Java means depending on `opentelemetry-api` only, not
 `opentelemetry-sdk`. The recorded version against each data point is the
 `opentelemetry-api` artifact version, declared in
@@ -23,11 +28,11 @@ benchmark run.
 ## Toolchain
 
 The JDK is provisioned by the workflow with
-[`actions/setup-java`](https://github.com/actions/setup-java) (Temurin 17) and
-the [Gradle wrapper](gradlew) pins the Gradle version, so results are
-reproducible and comparable release-over-release regardless of what the CI
-runner ships. The `java` toolchain block in [`build.gradle`](build.gradle)
-pins the language version. Bump those to re-baseline on a newer JDK.
+[`actions/setup-java`](https://github.com/actions/setup-java) (Temurin 25, the
+newest LTS) and the [Gradle wrapper](gradlew) pins the Gradle version, so
+results are reproducible and comparable release-over-release regardless of what
+the CI runner ships. The `java` toolchain block in [`build.gradle`](build.gradle)
+pins the language version. Bump both to re-baseline on a newer JDK.
 
 ## Framework
 
@@ -50,5 +55,5 @@ cd harnesses/java
 
 The mean is read from the `avgt` primary metric in
 `build/results/jmh/result.json` and published to the dashboard as `ns/op`
-(smaller is better). The no-op `add` path does no useful work, so
-`allocations/op` is not separately reported for Java.
+(smaller is better). The JMH `gc` profiler also records `gc.alloc.rate.norm`,
+published as `allocations/op` (`B/op`), matching what the .NET harness reports.

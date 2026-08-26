@@ -32,7 +32,7 @@ jobs:
       - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '25'
           cache: gradle
           cache-dependency-path: harnesses/java/*.gradle
 
@@ -74,10 +74,14 @@ jobs:
           report="build/results/jmh/result.json"
           score=$(jq '.[0].primaryMetric.score' "$report")
           error=$(jq '.[0].primaryMetric.scoreError' "$report")
-          jq -n --arg extra "$EXTRA" --argjson v "$score" --argjson e "$error" \
+          alloc=$(jq '[.[0].secondaryMetrics | to_entries[]
+            | select(.key | endswith("gc.alloc.rate.norm")) | .value.score]
+            | first // 0' "$report")
+          jq -n --arg extra "$EXTRA" --argjson v "$score" --argjson e "$error" --argjson a "$alloc" \
             '[
               ({name:"counter increment", unit:"ns", value:$v, extra:$extra})
-              + (if ($e == null or ($e | isnan)) then {} else {range:("\u00b1 " + ($e | tostring))} end)
+              + (if ($e == null or ($e | isnan)) then {} else {range:("\u00b1 " + ($e | tostring))} end),
+              {name:"counter increment allocations", unit:"B/op", value:$a, extra:$extra}
             ]' > result.json
           cat result.json
 

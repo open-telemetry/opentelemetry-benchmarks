@@ -11,6 +11,7 @@
 package io.opentelemetry.benchmarks;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.metrics.LongCounter;
 import io.opentelemetry.api.metrics.Meter;
@@ -28,6 +29,16 @@ import org.openjdk.jmh.annotations.State;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class S001CounterIncrementApiOnly {
 
+    // Attribute keys are known ahead of time, so they are cached as static
+    // AttributeKeys (the idiomatic OpenTelemetry Java pattern). The Attributes
+    // container itself is still built on every call: S001 models the common
+    // case where a library cannot pre-build the attribute set because the
+    // values come from per-call context (e.g. http.route, db.operation). The
+    // values are fixed here only to keep the benchmark deterministic.
+    private static final AttributeKey<String> ROOM = AttributeKey.stringKey("house.room");
+    private static final AttributeKey<String> DEVICE = AttributeKey.stringKey("house.device");
+    private static final AttributeKey<String> ACTION = AttributeKey.stringKey("house.action");
+
     private LongCounter counter;
 
     @Setup
@@ -42,11 +53,10 @@ public class S001CounterIncrementApiOnly {
     @Benchmark
     public Attributes counterIncrement() {
         Attributes attributes =
-                Attributes.builder()
-                        .put("house.room", "living_room")
-                        .put("house.device", "thermostat")
-                        .put("house.action", "set_temperature")
-                        .build();
+                Attributes.of(
+                        ROOM, "living_room",
+                        DEVICE, "thermostat",
+                        ACTION, "set_temperature");
         counter.add(1L, attributes);
         return attributes;
     }

@@ -19,15 +19,18 @@ def asInt = { v, d -> ((project.findProperty(v) ?: d) as String) as Integer }
 
 jmh {
     warmupIterations = asInt('jmhWarmupIterations', 3)
-    iterations = asInt('jmhIterations', 5)
-    fork = asInt('jmhFork', 1)
+    iterations = asInt('jmhIterations', 10)
+    fork = asInt('jmhFork', 3)
     warmup = project.findProperty('jmhWarmup') ?: '1s'
-    timeOnIteration = project.findProperty('jmhTimeOnIteration') ?: '2s'
+    timeOnIteration = project.findProperty('jmhTimeOnIteration') ?: '1s'
     benchmarkMode = ['avgt']
     timeUnit = 'ns'
-    // JMH core version; kept current by the "jmh-core" customManager in
-    // .github/renovate.json5 (the me.champeau.jmh plugin default would pin an
-    // older JMH).
+    // The gc profiler reports allocations/op (gc.alloc.rate.norm), which the
+    // publish workflow turns into the "B/op" data point (parity with .NET's
+    // MemoryDiagnoser).
+    profilers = ['gc']
+    // Fail the build rather than silently publishing data from a broken run.
+    failOnError = true
     jmhVersion = '1.37'
     resultFormat = 'JSON'
     resultsFile = layout.buildDirectory.file('results/jmh/result.json').get().asFile
@@ -42,6 +45,6 @@ tasks.register('printOtelApiVersion') {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }

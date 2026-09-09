@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1788761197653,
+  "lastUpdate": 1788938080268,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -350,6 +350,44 @@ window.BENCHMARK_DATA = {
             "value": 14.45211360076717,
             "unit": "ns",
             "extra": "runner=ubuntu24\nruntime=rustc 1.98.0 (88d9e12ae 2026-08-18)\ncpu=AMD EPYC 9V74 80-Core Processor\nkernel=6.17.0-1022-azure\nframework=Criterion 0.8.2"
+          }
+        ]
+      }
+    ],
+    ".NET / S001 (.NET 10.0.12)": [
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "87df50a7b625776da06793101ee1d24c417339ea",
+          "message": "Bump dependency dotnet-sdk to v10.0.401 (#42)",
+          "timestamp": "2026-09-09T08:13:45+01:00",
+          "tree_id": "f2d6636cbc004e1ae7f31a20e008137dad1416cf",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/87df50a7b625776da06793101ee1d24c417339ea"
+        },
+        "date": 1788938079263,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 2.337406182040771,
+            "unit": "ns",
+            "extra": "runner=ubuntu24\nruntime=.NET 10.0.401\ncpu=INTEL(R) XEON(R) PLATINUM 8573C\nkernel=6.17.0-1022-azure\nframework=BenchmarkDotNet"
+          },
+          {
+            "name": "counter increment allocations",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "runner=ubuntu24\nruntime=.NET 10.0.401\ncpu=INTEL(R) XEON(R) PLATINUM 8573C\nkernel=6.17.0-1022-azure\nframework=BenchmarkDotNet"
           }
         ]
       }

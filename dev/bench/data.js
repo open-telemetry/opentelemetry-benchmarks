@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789366905482,
+  "lastUpdate": 1789976868300,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -410,6 +410,36 @@ window.BENCHMARK_DATA = {
             "value": 11.902657271963458,
             "unit": "ns",
             "extra": "runner=ubuntu24\nruntime=rustc 1.98.1 (48a229cea 2026-09-01)\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=6.17.0-1022-azure\nframework=Criterion 0.8.2"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8dc34adefabcd391c60386c4fa65ef9d7157fb8e",
+          "message": "Lock file maintenance (#47)\n\nSigned-off-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>\nCo-authored-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>",
+          "timestamp": "2026-09-21T08:44:01+01:00",
+          "tree_id": "caebd207425b6fcc5738e6e1022f9f59b4844f60",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/8dc34adefabcd391c60386c4fa65ef9d7157fb8e"
+        },
+        "date": 1789976867633,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 8.443349542093824,
+            "unit": "ns",
+            "extra": "runner=ubuntu24\nruntime=rustc 1.98.1 (48a229cea 2026-09-01)\ncpu=INTEL(R) XEON(R) PLATINUM 8573C\nkernel=6.17.0-1022-azure\nframework=Criterion 0.8.2"
           }
         ]
       }

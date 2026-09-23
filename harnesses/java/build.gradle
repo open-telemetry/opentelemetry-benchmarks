@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'me.champeau.jmh' version '0.7.3'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// otelApiVersion (the tracked S001 variable) is defined in gradle.properties so
+// Renovate auto-bumps it; CI can override it with -PotelApiVersion=X.Y.Z.
+dependencies {
+    jmh "io.opentelemetry:opentelemetry-api:$otelApiVersion"
+}
+
+// JMH run parameters default to a statistically stable configuration and are
+// overridable from CI so the pull-request smoke check can run a fast dry-run.
+def asInt = { v, d -> ((project.findProperty(v) ?: d) as String) as Integer }
+
+jmh {
+    warmupIterations = asInt('jmhWarmupIterations', 3)
+    iterations = asInt('jmhIterations', 10)
+    fork = asInt('jmhFork', 3)
+    warmup = project.findProperty('jmhWarmup') ?: '1s'
+    timeOnIteration = project.findProperty('jmhTimeOnIteration') ?: '1s'
+    benchmarkMode = ['avgt']
+    timeUnit = 'ns'
+    // The gc profiler reports allocations/op (gc.alloc.rate.norm), which the
+    // publish workflow turns into the "B/op" data point (parity with .NET's
+    // MemoryDiagnoser).
+    profilers = ['gc']
+    // Fail the build rather than silently publishing data from a broken run.
+    failOnError = true
+    jmhVersion = '1.37'
+    resultFormat = 'JSON'
+    resultsFile = layout.buildDirectory.file('results/jmh/result.json').get().asFile
+}
+
+// Prints the tracked OpenTelemetry API version the build resolves, so the
+// benchmark workflow can label the published data point without re-parsing
+// this file.
+tasks.register('printOtelApiVersion') {
+    doLast { println project.property('otelApiVersion') }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}

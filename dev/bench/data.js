@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790146799843,
+  "lastUpdate": 1790151081199,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -514,6 +514,42 @@ window.BENCHMARK_DATA = {
             "value": 0,
             "unit": "B/op",
             "extra": "runner=ubuntu24\nruntime=.NET 10.0.401\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=6.17.0-1022-azure\nframework=BenchmarkDotNet"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1de34a1ab63ee98ab3de2d407221da3e5d98c1e9",
+          "message": "Bump dependency ubuntu to v26 (#52)\n\n| datasource     | package | from  | to    |\n| -------------- | ------- | ----- | ----- |\n| github-runners | ubuntu  | 24.04 | 26.04 |\n\nSigned-off-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>\nCo-authored-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>",
+          "timestamp": "2026-09-23T09:10:19+01:00",
+          "tree_id": "a8aea312b2a444d671af49b139682975a5fe0c2a",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/1de34a1ab63ee98ab3de2d407221da3e5d98c1e9"
+        },
+        "date": 1790151080237,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 2.2340144467436605,
+            "unit": "ns",
+            "extra": "runner=ubuntu26\nruntime=.NET 10.0.401\ncpu=INTEL(R) XEON(R) PLATINUM 8573C\nkernel=7.0.0-1012-azure\nframework=BenchmarkDotNet"
+          },
+          {
+            "name": "counter increment allocations",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "runner=ubuntu26\nruntime=.NET 10.0.401\ncpu=INTEL(R) XEON(R) PLATINUM 8573C\nkernel=7.0.0-1012-azure\nframework=BenchmarkDotNet"
           }
         ]
       }

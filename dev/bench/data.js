@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790577837132,
+  "lastUpdate": 1790749489172,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -550,6 +550,42 @@ window.BENCHMARK_DATA = {
             "value": 0,
             "unit": "B/op",
             "extra": "runner=ubuntu26\nruntime=.NET 10.0.401\ncpu=INTEL(R) XEON(R) PLATINUM 8573C\nkernel=7.0.0-1012-azure\nframework=BenchmarkDotNet"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6f246505dc932d75a1bbcbb48e410f718cace877",
+          "message": "Bump dependency BenchmarkDotNet to 0.16.0-preview.2 (#55)",
+          "timestamp": "2026-09-30T07:24:01+01:00",
+          "tree_id": "161bc244345cdd49c4bada15037b8d6de28539d5",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/6f246505dc932d75a1bbcbb48e410f718cace877"
+        },
+        "date": 1790749488669,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 2.837627450434061,
+            "unit": "ns",
+            "extra": "runner=ubuntu26\nruntime=.NET 10.0.401\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=7.0.0-1012-azure\nframework=BenchmarkDotNet"
+          },
+          {
+            "name": "counter increment allocations",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "runner=ubuntu26\nruntime=.NET 10.0.401\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=7.0.0-1012-azure\nframework=BenchmarkDotNet"
           }
         ]
       }

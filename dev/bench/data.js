@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1791183479820,
+  "lastUpdate": 1791356248780,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -738,6 +738,36 @@ window.BENCHMARK_DATA = {
             "value": 11.872504148457558,
             "unit": "ns",
             "extra": "runner=ubuntu26\nruntime=rustc 1.98.1 (48a229cea 2026-09-01)\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=7.0.0-1012-azure\nframework=Criterion 0.8.2"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d2bbc6a8428bd9abead5535019704d0fd4c0945e",
+          "message": "Bump Rust to v1.99.0 (#60)",
+          "timestamp": "2026-10-07T07:56:29+01:00",
+          "tree_id": "c7eb44eaf1a3c0499197624bbfcc7f164a421d57",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/d2bbc6a8428bd9abead5535019704d0fd4c0945e"
+        },
+        "date": 1791356248254,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 12.62397403449251,
+            "unit": "ns",
+            "extra": "runner=ubuntu26\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=7.0.0-1012-azure\nframework=Criterion 0.8.2"
           }
         ]
       }

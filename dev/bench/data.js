@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1791356248780,
+  "lastUpdate": 1791784131103,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -768,6 +768,38 @@ window.BENCHMARK_DATA = {
             "value": 12.62397403449251,
             "unit": "ns",
             "extra": "runner=ubuntu26\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=7.0.0-1012-azure\nframework=Criterion 0.8.2"
+          }
+        ]
+      }
+    ],
+    "Rust / S001 (opentelemetry 0.33.1)": [
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "87007814361a59e74ff090c13c41d1ee62a16ad2",
+          "message": "Lock file maintenance (#61)",
+          "timestamp": "2026-10-12T06:47:58+01:00",
+          "tree_id": "f8c83b4248e75ae370b278c7882aa0bb0d637773",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/87007814361a59e74ff090c13c41d1ee62a16ad2"
+        },
+        "date": 1791784130504,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 7.498884765860758,
+            "unit": "ns",
+            "extra": "runner=ubuntu26\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=AMD EPYC 9V45 96-Core Processor\nkernel=7.0.0-1012-azure\nframework=Criterion 0.8.2"
           }
         ]
       }

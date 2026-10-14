@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1791784131103,
+  "lastUpdate": 1791986106012,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -800,6 +800,44 @@ window.BENCHMARK_DATA = {
             "value": 7.498884765860758,
             "unit": "ns",
             "extra": "runner=ubuntu26\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=AMD EPYC 9V45 96-Core Processor\nkernel=7.0.0-1012-azure\nframework=Criterion 0.8.2"
+          }
+        ]
+      }
+    ],
+    ".NET / S001 (.NET 10.0.13)": [
+      {
+        "commit": {
+          "author": {
+            "email": "martin@martincostello.com",
+            "name": "Martin Costello",
+            "username": "martincostello"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "92e356df8ad501595cd2a7581f7e179c34b3be86",
+          "message": "Add solution file (#63)\n\n- Add a solution file for .NET.\n- Ignore `.bdn` directory from Git.",
+          "timestamp": "2026-10-14T14:54:14+01:00",
+          "tree_id": "be0efa136d5ee2288df41f73cb63d202d9b06277",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/92e356df8ad501595cd2a7581f7e179c34b3be86"
+        },
+        "date": 1791986105163,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 2.835228986178453,
+            "unit": "ns",
+            "extra": "runner=ubuntu26\nruntime=.NET 10.0.401\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=7.0.0-1012-azure\nframework=BenchmarkDotNet"
+          },
+          {
+            "name": "counter increment allocations",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "runner=ubuntu26\nruntime=.NET 10.0.401\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=7.0.0-1012-azure\nframework=BenchmarkDotNet"
           }
         ]
       }

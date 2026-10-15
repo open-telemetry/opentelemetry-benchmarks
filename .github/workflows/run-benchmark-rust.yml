@@ -18,16 +18,37 @@ concurrency:
 jobs:
   rust:
     name: Rust / S001
-    runs-on: ubuntu-26.04
+    if: github.repository == 'open-telemetry/opentelemetry-benchmarks'
+    runs-on: oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24
+    container:
+      image: ubuntu:24.04@sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55
+    defaults:
+      run:
+        shell: bash
     timeout-minutes: 30
 
     permissions:
       contents: write # Publish data points to the gh-pages branch
 
+    env:
+      CARGO_HOME: /opt/cargo
+      RUSTUP_HOME: /opt/rustup
+
     steps:
+      - name: Install container prerequisites
+        run: |
+          apt-get update
+          apt-get install --no-install-recommends -y build-essential ca-certificates curl git jq
+
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+
+      - name: Install rustup
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs -o /tmp/rustup-init.sh
+          sh /tmp/rustup-init.sh -y --no-modify-path --default-toolchain none
+          echo "$CARGO_HOME/bin" >> "$GITHUB_PATH"
 
       - name: Run Criterion benchmark
         working-directory: harnesses/rust
@@ -45,13 +66,14 @@ jobs:
         id: meta
         working-directory: harnesses/rust
         run: |
-          image="${ImageOS:-$RUNNER_OS}"
+          image="$RUNNER_NAME"
+          container_os=$(. /etc/os-release; printf '%s' "$PRETTY_NAME")
           runtime="$(rustc --version)"
           cpu=$(grep -m1 'model name' /proc/cpuinfo | sed 's/.*: //')
           kernel=$(uname -r)
           criterion=$(cargo metadata --format-version 1 --locked | jq -r '.packages[] | select(.name == "criterion") | .version')
-          extra=$(printf 'runner=%s\nruntime=%s\ncpu=%s\nkernel=%s\nframework=Criterion %s' \
-            "$image" "$runtime" "$cpu" "$kernel" "$criterion")
+          extra=$(printf 'runner=%s\ncontainer_os=%s\nruntime=%s\ncpu=%s\nkernel=%s\nframework=Criterion %s' \
+            "$image" "$container_os" "$runtime" "$cpu" "$kernel" "$criterion")
           {
             echo 'extra<<__END__'
             echo "$extra"

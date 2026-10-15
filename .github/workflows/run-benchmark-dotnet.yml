@@ -18,13 +18,20 @@ concurrency:
 jobs:
   dotnet:
     name: .NET / S001
-    runs-on: ubuntu-26.04
+    if: github.repository == 'open-telemetry/opentelemetry-benchmarks'
+    runs-on: oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24
+    container:
+      image: ubuntu:24.04@sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55
+    defaults:
+      run:
+        shell: bash
     timeout-minutes: 30
 
     permissions:
       contents: write # Publish data points to the gh-pages branch
 
     env:
+      DOTNET_INSTALL_DIR: /opt/dotnet
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_GENERATE_ASPNET_CERTIFICATE: false
       DOTNET_NOLOGO: true
@@ -33,6 +40,11 @@ jobs:
       TERM: xterm
 
     steps:
+      - name: Install container prerequisites
+        run: |
+          apt-get update
+          apt-get install --no-install-recommends -y ca-certificates curl git jq libicu74 libssl3t64 zlib1g
+
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -66,12 +78,13 @@ jobs:
       - name: Collect environment metadata
         id: meta
         run: |
-          image="${ImageOS:-$RUNNER_OS}"
+          image="$RUNNER_NAME"
+          container_os=$(. /etc/os-release; printf '%s' "$PRETTY_NAME")
           runtime=".NET $(dotnet --version)"
           cpu=$(grep -m1 'model name' /proc/cpuinfo | sed 's/.*: //')
           kernel=$(uname -r)
-          extra=$(printf 'runner=%s\nruntime=%s\ncpu=%s\nkernel=%s\nframework=BenchmarkDotNet' \
-            "$image" "$runtime" "$cpu" "$kernel")
+          extra=$(printf 'runner=%s\ncontainer_os=%s\nruntime=%s\ncpu=%s\nkernel=%s\nframework=BenchmarkDotNet' \
+            "$image" "$container_os" "$runtime" "$cpu" "$kernel")
           {
             echo 'extra<<__END__'
             echo "$extra"

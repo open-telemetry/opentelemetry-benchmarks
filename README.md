@@ -31,6 +31,21 @@ The raw [github-action-benchmark](https://github.com/benchmark-action/github-act
 view is also available at
 [`/dev/bench/`](https://open-telemetry.github.io/opentelemetry-benchmarks/dev/bench/).
 
+## Benchmark execution
+
+The benchmark publishing workflows run in digest-pinned Ubuntu containers
+on the shared OpenTelemetry bare-metal runner. Each harness's toolchain file
+selects its compiler or SDK version. PR build and smoke checks use GitHub-hosted
+runners.
+
+Published results record the runner name, container OS, runtime, CPU, kernel,
+and benchmark framework. Results collected before the move to bare metal used
+GitHub-hosted runners; treat the environment change as a new baseline when
+interpreting trends.
+
+See the [runner usage guidance](https://github.com/open-telemetry/community/blob/main/docs/how-to-use-bare-metal-runner.md)
+for container and cleanup requirements when adding publishing workflows.
+
 ## Maintainers
 
 - [Cijo Thomas](https://github.com/cijothomas), Microsoft

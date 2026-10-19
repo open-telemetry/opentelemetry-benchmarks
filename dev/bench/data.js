@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1791986106012,
+  "lastUpdate": 1792396194326,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -800,6 +800,36 @@ window.BENCHMARK_DATA = {
             "value": 7.498884765860758,
             "unit": "ns",
             "extra": "runner=ubuntu26\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=AMD EPYC 9V45 96-Core Processor\nkernel=7.0.0-1012-azure\nframework=Criterion 0.8.2"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "5232798+cijothomas@users.noreply.github.com",
+            "name": "Cijo Thomas",
+            "username": "cijothomas"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3a34c7ed26297df715f73db0c05849fb8554d95b",
+          "message": "Trust benchmark workspace before publishing dashboard results (#68)",
+          "timestamp": "2026-10-19T08:47:50+01:00",
+          "tree_id": "5d7a2a2da85d3bec1c2ea31f8893d0776ef1089d",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/3a34c7ed26297df715f73db0c05849fb8554d95b"
+        },
+        "date": 1792396193438,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 10.061510933721808,
+            "unit": "ns",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
           }
         ]
       }

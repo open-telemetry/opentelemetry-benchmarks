@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1792396194326,
+  "lastUpdate": 1792396329816,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -868,6 +868,42 @@ window.BENCHMARK_DATA = {
             "value": 0,
             "unit": "B/op",
             "extra": "runner=ubuntu26\nruntime=.NET 10.0.401\ncpu=AMD EPYC 7763 64-Core Processor\nkernel=7.0.0-1012-azure\nframework=BenchmarkDotNet"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "5232798+cijothomas@users.noreply.github.com",
+            "name": "Cijo Thomas",
+            "username": "cijothomas"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3a34c7ed26297df715f73db0c05849fb8554d95b",
+          "message": "Trust benchmark workspace before publishing dashboard results (#68)",
+          "timestamp": "2026-10-19T08:47:50+01:00",
+          "tree_id": "5d7a2a2da85d3bec1c2ea31f8893d0776ef1089d",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/3a34c7ed26297df715f73db0c05849fb8554d95b"
+        },
+        "date": 1792396329174,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 3.3942888543009757,
+            "unit": "ns",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=.NET 10.0.401\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=BenchmarkDotNet"
+          },
+          {
+            "name": "counter increment allocations",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=.NET 10.0.401\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=BenchmarkDotNet"
           }
         ]
       }

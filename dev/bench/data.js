@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1792396329816,
+  "lastUpdate": 1792405011139,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -828,6 +828,36 @@ window.BENCHMARK_DATA = {
           {
             "name": "counter increment",
             "value": 10.061510933721808,
+            "unit": "ns",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "aa872ddf9577c64243b62b90dc79e2210065c9d2",
+          "message": "Lock file maintenance (#67)\n\nSigned-off-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>\nCo-authored-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>",
+          "timestamp": "2026-10-19T11:14:55+01:00",
+          "tree_id": "3cd866c393258f77d797e6f125e0920d3869cd66",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/aa872ddf9577c64243b62b90dc79e2210065c9d2"
+        },
+        "date": 1792405010479,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 10.623172056453592,
             "unit": "ns",
             "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
           }

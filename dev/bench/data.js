@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1792561482501,
+  "lastUpdate": 1792564564214,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -920,6 +920,36 @@ window.BENCHMARK_DATA = {
             "value": 9.932557123333915,
             "unit": "ns",
             "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=rustc 1.99.1 (58cf8f9c3 2026-10-13)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d1a60a1f60c837e3328d911f4d0c314c26148edf",
+          "message": "Bump ubuntu Docker tag to v26 (#74)",
+          "timestamp": "2026-10-21T07:32:37+01:00",
+          "tree_id": "b4d29ec556b83082b12983ed9dcc3545397fbd78",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/d1a60a1f60c837e3328d911f4d0c314c26148edf"
+        },
+        "date": 1792564563579,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 10.30995325728741,
+            "unit": "ns",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 26.04.1 LTS\nruntime=rustc 1.99.1 (58cf8f9c3 2026-10-13)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
           }
         ]
       }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1792405011139,
+  "lastUpdate": 1792560804469,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -858,6 +858,36 @@ window.BENCHMARK_DATA = {
           {
             "name": "counter increment",
             "value": 10.623172056453592,
+            "unit": "ns",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2472a564dfada68edd66a4503855277575c7b05f",
+          "message": "Bump ubuntu:24.04 Docker digest to 68ee220 (#69)",
+          "timestamp": "2026-10-21T06:30:52+01:00",
+          "tree_id": "c76b95e303ca79e772824b8c30c92537c1d50827",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/2472a564dfada68edd66a4503855277575c7b05f"
+        },
+        "date": 1792560803807,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 10.149355965635774,
             "unit": "ns",
             "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=rustc 1.99.0 (b940084d7 2026-09-28)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
           }

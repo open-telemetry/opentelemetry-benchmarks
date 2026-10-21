@@ -43,7 +43,7 @@ jobs:
       - name: Install container prerequisites
         run: |
           apt-get update
-          apt-get install --no-install-recommends -y ca-certificates curl git jq libicu74 libssl3t64 zlib1g
+          apt-get install --no-install-recommends -y ca-certificates curl git jq libicu78 libssl3t64 zlib1g
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

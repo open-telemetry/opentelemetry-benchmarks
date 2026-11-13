@@ -15,6 +15,18 @@
       "matchStrings": [
         "# renovate:\\s*datasource=(?<datasource>github-runners)(?:\\s+[A-Za-z][A-Za-z0-9_-]*=[^\\s]+)*?(?:\\s+versioning=(?<versioning>[^\\s]+))?(?:\\s+[A-Za-z][A-Za-z0-9_-]*=[^\\s]+)*\\s*\\r?\\n\\s*(?:-\\s*)?(?:[A-Za-z0-9_-]+:\\s*)?['\"]?(?<depName>[a-zA-Z]+)-(?<currentValue>[A-Za-z0-9._-]+)['\"]?"
       ]
+    },
+    {
+      "customType": "regex",
+      "description": ["Update the JMH version pinned in the Java harness build.gradle"],
+      "managerFilePatterns": [
+        "/(^|/)harnesses/java/build\\.gradle$/"
+      ],
+      "matchStrings": [
+        "jmhVersion\\s*=\\s*['\"](?<currentValue>[^'\"]+)['\"]"
+      ],
+      "datasourceTemplate": "maven",
+      "depNameTemplate": "org.openjdk.jmh:jmh-core"
     }
   ],
   "dependencyDashboard": false,

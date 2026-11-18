@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794985985778,
+  "lastUpdate": 1794996457775,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -1216,6 +1216,44 @@ window.BENCHMARK_DATA = {
             "value": 0,
             "unit": "B/op",
             "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 24.04.5 LTS\nruntime=.NET 10.0.402\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=BenchmarkDotNet"
+          }
+        ]
+      }
+    ],
+    ".NET / S001 (.NET 10.0.15)": [
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "03f331360daafd292fdb5811b6125929b85a6770",
+          "message": "Bump dependency dotnet-sdk to v10.0.404 (#86)\n\n* Bump dependency dotnet-sdk to v10.0.404\n\n| datasource     | package    | from     | to       |\n| -------------- | ---------- | -------- | -------- |\n| dotnet-version | dotnet-sdk | 10.0.403 | 10.0.404 |\n\n\nSigned-off-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>\n\n* Fix .NET benchmarks on Ubuntu 26\n\nInstall `libicu78` instead of `libicu74`.\n\n---------\n\nSigned-off-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>\nCo-authored-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>\nCo-authored-by: Martin Costello <martin@martincostello.com>",
+          "timestamp": "2026-11-18T10:05:43Z",
+          "tree_id": "dcb8b980e1454cfe4fa0616e1b0ecea12be4bfcc",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/03f331360daafd292fdb5811b6125929b85a6770"
+        },
+        "date": 1794996457142,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 3.206751277240423,
+            "unit": "ns",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 26.04.1 LTS\nruntime=.NET 10.0.404\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=BenchmarkDotNet"
+          },
+          {
+            "name": "counter increment allocations",
+            "value": 0,
+            "unit": "B/op",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 26.04.1 LTS\nruntime=.NET 10.0.404\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=BenchmarkDotNet"
           }
         ]
       }

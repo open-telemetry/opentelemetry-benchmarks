@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1795587115976,
+  "lastUpdate": 1795587276861,
   "repoUrl": "https://github.com/open-telemetry/opentelemetry-benchmarks",
   "entries": {
     ".NET / S001 (.NET 10.0.11)": [
@@ -1068,6 +1068,36 @@ window.BENCHMARK_DATA = {
           {
             "name": "counter increment",
             "value": 10.779341030979069,
+            "unit": "ns",
+            "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 26.04.1 LTS\nruntime=rustc 1.100.0 (0ef1bc386 2026-11-09)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "29139614+renovate[bot]@users.noreply.github.com",
+            "name": "renovate[bot]",
+            "username": "renovate[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8dab8a129ddb917f62e345ffc35398235b0d842a",
+          "message": "Bump ubuntu:26.04 Docker digest to d66b366 (#88)",
+          "timestamp": "2026-11-25T08:09:56+02:00",
+          "tree_id": "43fc0d835689725f6e072031230b65bbd59ed9f4",
+          "url": "https://github.com/open-telemetry/opentelemetry-benchmarks/commit/8dab8a129ddb917f62e345ffc35398235b0d842a"
+        },
+        "date": 1795587276221,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "counter increment",
+            "value": 10.768793604118667,
             "unit": "ns",
             "extra": "runner=oracle-bare-metal-64cpu-1024gb-x86-64-ubuntu-24\ncontainer_os=Ubuntu 26.04.1 LTS\nruntime=rustc 1.100.0 (0ef1bc386 2026-11-09)\ncpu=Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz\nkernel=6.17.0-1018-oracle\nframework=Criterion 0.8.2"
           }
